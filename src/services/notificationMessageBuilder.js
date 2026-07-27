@@ -1,4 +1,4 @@
-export function buildMessage(availabilities, preferredHut) {
+export function buildMessage(availabilities) {
   const availableHutBeds = availabilities.filter((a) => !!a);
   const messageParts = [];
 
@@ -14,14 +14,6 @@ export function buildMessage(availabilities, preferredHut) {
         .join("\n");
       messageParts.push(`${hut.hutName}: \n${datesMessage}\n\n`);
     });
-  }
-
-  const shouldAddPreferredHutWarning =
-    preferredHut &&
-    availableHutBeds.some((r) => r.hutName === preferredHut.name);
-
-  if (shouldAddPreferredHutWarning) {
-    messageParts.push(`${preferredHut.name} available!!!!!`);
   }
 
   return messageParts.join("\n");

@@ -11,14 +11,23 @@ setInterval(async function () {
 }, 60 * 1000 * intervalToCheckInMins);
 
 async function checkHuts() {
-  const hutsToWatch = [huts.knorrHut, huts.reintalangerHut];
+  const hutsToWatch = [
+    huts.knorrHut,
+    huts.reintalangerHut,
+    huts.simonyHut,
+    huts.olpererHut,
+  ];
 
   // Format "DD.MM.YYYY"
-  const datesToWatch = ["02.09.2022", "03.09.2022", "04.09.2022", "01.09.2022"];
+  const datesToWatch = ["19.09.2026"];
 
   const availability = await getHutsAvailabilities(hutsToWatch, datesToWatch);
 
-  const messageToPrint = buildMessage(availability, huts.knorrHut);
+  const messageToPrint = buildMessage(availability);
 
-  console.log(messageToPrint);
+  if (messageToPrint) {
+    console.log(messageToPrint);
+  } else {
+    console.log(`[${new Date().toISOString()}] No availability found.`);
+  }
 }

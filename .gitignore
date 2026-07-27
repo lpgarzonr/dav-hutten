@@ -9,3 +9,7 @@ yarn-error.log
 .yarn/build-state.yml
 .pnp.*
 .vscode
+
+# Credentials - never commit
+.env
+.env.*
