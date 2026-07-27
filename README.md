@@ -2,34 +2,59 @@
 
 Project to get notifications for DAV huts availability
 
-I am lately into sleeping in the DAV huts, however i mostly spontaneously decide when and where to go based on multiple factors
+I am lately into sleeping in the DAV huts, however I mostly spontaneously decide when and where to go based on multiple factors
 like weather or simply my mood :)
 
-The huts are usually full, specially on the weekend however but its very likely that some customers cancel. The main idea of this project its to get some push notification like slack, email or sms when my favorite huts get free slots
+The huts are usually full, specially on the weekend, but it's very likely that some customers cancel. The main idea of this project is to get notified when my favorite huts get free slots.
 
-# How to run it
+## How to run it
 
-Te current version process is very manual, improvements are coming
+1. Install Node.js (>=14.16) and npm
 
-1. Install yarn
-   check the official [installation guide](https://classic.yarnpkg.com/en/docs/install)
-
-2. Run locally
+2. Install dependencies
 
 ```sh
-yarn dev
+npm install
 ```
 
-# Enrich huts file
+3. Run locally
 
-Checking huts is limited to the huts in [this](./src/models/huts.js) file, add more in case the hut of interest is not there
-to get the ID use the search browser and navigate to the wep page to reserve the desired hut, then check the URL and get the ID from
-the query params
+```sh
+npm run dev
+```
 
-example for Höllentalangerhütte the ulr is https://www.alpsonline.org/reservation/calendar?hut_id=73 and the id is 73
+The app checks availability every 5 minutes and prints any free slots to the console.
 
-# How to add your huts and dates
+## Watched huts
 
-limitation! this version only check dates within a range of 13 days, future versions will fix that
+The following huts are currently watched (all via [hut-reservation.org](https://www.hut-reservation.org)):
 
-enrich or edit the `hutsToWatch` and `datesToWatch` arrays in [app.js](./app.js)
+| Hut | ID | Region |
+|-----|----|--------|
+| Knorrhütte | 149 | Zugspitze |
+| Höllentalangerhütte | 73 | Garmisch |
+| Reintalangerhütte | 128 | Garmisch |
+| Simony-Hütte | 219 | Dachstein |
+| Olpererhütte | 119 | Zillertal |
+
+## How to add more huts
+
+Edit [`src/models/huts.js`](./src/models/huts.js) to add a hut. To find the ID, go to
+[hut-reservation.org](https://www.hut-reservation.org), navigate to the hut's booking page,
+and grab the number from the URL:
+
+```
+https://www.hut-reservation.org/reservation/book-hut/73/wizard
+                                                        ^^
+                                                        hut ID
+```
+
+Then add it to the `hutsToWatch` array in [`app.js`](./app.js).
+
+## How to change watched dates
+
+Edit the `datesToWatch` array in [`app.js`](./app.js). Dates use the format `DD.MM.YYYY`.
+
+```js
+const datesToWatch = ["19.09.2026"];
+```
