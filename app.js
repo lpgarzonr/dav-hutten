@@ -13,6 +13,7 @@ setInterval(async function () {
 async function checkHuts() {
   const hutsToWatch = [
     huts.knorrHut,
+    huts.hollentallangerHut,
     huts.reintalangerHut,
     huts.simonyHut,
     huts.olpererHut,
